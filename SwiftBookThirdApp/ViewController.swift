@@ -18,19 +18,22 @@ class ViewController: UIViewController {
     @IBOutlet weak var resultLable: UILabel!
     
     @IBAction func findDay(_ sender: UIButton) {
+        
+        guard let day = dateTextField.text, let month = monthTextField.text, let year = earTextField.text else
+        { return }
     
         let calender = Calendar.current
         var dateComponents = DateComponents()
-        dateComponents.day = Int(dateTextField.text!)
-        dateComponents.month = Int(monthTextField.text!)
-        dateComponents.year = Int(earTextField.text!)
+        dateComponents.day = Int(day)
+        dateComponents.month = Int(month)
+        dateComponents.year = Int(year)
         
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "EEEE"
         
-        let date = calender.date(from: dateComponents)
+        guard let date = calender.date(from: dateComponents) else { return }
    
-        let weekday = dateFormatter.string(from: date!)
+        let weekday = dateFormatter.string(from: date)
         
         resultLable.text = weekday
     }
